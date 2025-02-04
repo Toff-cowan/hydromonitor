@@ -165,10 +165,10 @@ void vUpdate( void * pvParameters )  {
    
           // 1. Read Humidity and save in variable below
           double h = dht.readHumidity();;
-           
+          Serial.print(h);
           // 2. Read temperature as Celsius   and save in variable below
           double t =   dht.readTemperature();  
-
+          Serial.print(t);
           if(isNumber(t)){
               // ##Publish update according to ‘{"id": "student_id", "timestamp": 1702212234, "temperature": 30, "humidity":90, "heatindex": 30}’
 
