@@ -17,7 +17,7 @@ from os import getcwd
 from os.path import join, exists
 from time import time, ctime
 from math import floor
-from .functions import getAllInRange, humidityMMAR, temperatureMMAR, frequencyDistro
+
  
 
 
@@ -32,14 +32,10 @@ def get_all(start,end):
    
     if request.method == "GET":
         '''Add your code here to complete this route'''
-        try: 
-            if getAllInRange(start,end):
-                return jsonify({"status":"ok","data":getAllInRange(start,end)})
-            else:
-                # FILE DATA NOT EXIST
-                return jsonify({"status":"not found","data":[]})
-        except Exception as e:
-            return jsonify({"status":"error","data":str(e)})
+        if mongo.getAllInRange(escape(start),escape(end)):
+            return jsonify({"status":"found","data":mongo.getAllInRange(escape(start),escape(end))})         
+    # FILE DATA NOT EXIST
+    return jsonify({"status":"not found","data":[]})
     
    
 
@@ -50,8 +46,8 @@ def get_temperature_mmar(start,end):
    
     if request.method == "GET": 
         '''Add your code here to complete this route'''
-        if temperatureMMAR(start,end):
-                return jsonify({"status":"ok","data":temperatureMMAR(start,end)})
+        if mongo.temperatureMMAR(escape(start),escape(end)):
+            return jsonify({"status":"found","data":(mongo.temperatureMMAR(escape(start),escape(end)))})
     # FILE DATA NOT EXIST
     return jsonify({"status":"not found","data":[]})
 
@@ -65,8 +61,8 @@ def get_humidity_mmar(start,end):
    
     if request.method == "GET": 
         '''Add your code here to complete this route'''
-        if humidityMMAR(start,end):
-                return jsonify({"status":"ok","data":humidityMMAR(start,end)})
+        if mongo.humidityMMAR(escape(start),escape(end)):
+            return jsonify({"status":"found","data":(mongo.humidityMMAR(escape(start),escape(end)))})
 
 
     # FILE DATA NOT EXIST
@@ -82,8 +78,9 @@ def get_freq_distro(variable,start,end):
    
     if request.method == "GET": 
         '''Add your code here to complete this route'''         
-        if frequencyDistro(variable,start,end):
-                return jsonify({"status":"ok","data":frequencyDistro(variable,start,end)})
+        if mongo.frequencyDistro(escape(variable),escape(start),escape(end)):
+            #print(mongo.frequencyDistro(escape(variable), escape(start),escape(end)))
+            return jsonify({"status":"found","data":mongo.frequencyDistro(escape(variable),escape(start),escape(end))})
     # FILE DATA NOT EXIST
     return jsonify({"status":"not found","data":[]})
 
