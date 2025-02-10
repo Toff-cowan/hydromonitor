@@ -17,7 +17,7 @@ from os import getcwd
 from os.path import join, exists
 from time import time, ctime
 from math import floor
-from backend.app.functions import getAllInRange, humidityMMAR, temperatureMMAR, frequencyDistro
+from .functions import getAllInRange, humidityMMAR, temperatureMMAR, frequencyDistro
  
 
 
